@@ -36,22 +36,23 @@ public class Customer {
 	 * @return
 	 */
 	//定义主键，生成主键的策略AUTO自动的根据数据的类型生成主键
-//	@GeneratedValue(strategy=GenerationType.AUTO)
-//	@Id //定义数据列
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id //定义数据列
 //	@Column(name="ID")//定义数据库的列名如果与字段名一样可以省略
-	//使用table生成主键
-	@TableGenerator(name="ID_GENERATOR",
-			table="JPA_ID_GENERATORS",
-			pkColumnName="PK_NAME",
-			pkColumnValue="CUSTOMER_ID",
-			valueColumnName="PK_VALUE",
-			allocationSize=100
-			
-			
-			)
 	
-	@GeneratedValue(strategy=GenerationType.TABLE,generator="ID_GENERATOR")
-	@Id
+	//使用table生成主键
+//	@TableGenerator(name="ID_GENERATOR",
+//			table="JPA_ID_GENERATORS",
+//			pkColumnName="PK_NAME",
+//			pkColumnValue="CUSTOMER_ID",
+//			valueColumnName="PK_VALUE",
+//			allocationSize=100
+//			
+//			
+//			)
+//	
+//	@GeneratedValue(strategy=GenerationType.TABLE,generator="ID_GENERATOR")
+//	@Id
 	public Integer getId() {
 		return id;
 	}
