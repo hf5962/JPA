@@ -1,6 +1,8 @@
 package com.guigu.jpa.helloword;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,7 +14,11 @@ public class Main {
 	public static void main(String[] args) {
 		//1. 创建EntitymanagerFactory
 		String persistenceUnitName="jpa-2";
+		Map<String,Object> properties=new HashMap<String,Object>();
+		properties.put("hibernate.show_sql", true);
+		
 		EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory(persistenceUnitName);
+		//EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory(persistenceUnitName, properties);
 		
 		//2. 创建EntityManager
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
