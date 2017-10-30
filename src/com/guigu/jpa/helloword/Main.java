@@ -13,7 +13,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		//1. 创建EntitymanagerFactory
-		String persistenceUnitName="jpa-2";
+		String persistenceUnitName="jpa-1";
 		Map<String,Object> properties=new HashMap<String,Object>();
 		properties.put("hibernate.show_sql", true);
 		
@@ -30,8 +30,7 @@ public class Main {
 		customer.setAge(13);
 		customer.setEmail("318889659@qq.com");
 		customer.setLastName("helloworld");
-		customer.setBirth(new Date());
-		customer.setCreatedTime(new Date());		
+				
 		
 		
 		entityManager.persist(customer);
