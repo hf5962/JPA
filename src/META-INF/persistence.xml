@@ -3,7 +3,7 @@
 	<!-- transaction-type：指定 JPA  的事务处理策略。RESOURCE_LOCAL：
 	默认值，数据库级别的事务，只能针对一种数据库，不支持分布式事务。
             如果需要支持分布式事务，使用JTA：transaction-type="JTA“ -->
-	<persistence-unit name="jpa-2" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="jpa-1" transaction-type="RESOURCE_LOCAL">
 	     <!-- 配置使用什么ORM产品作为JPA的实现 
 	     1.实际配置的是javaX.persistences.spi.PersistenceProvider 接口的实现类
 	     2.JPA项目中只有一个JPA的实现产品，则也可以不配置该产品。
