@@ -47,6 +47,7 @@ public class Customer {
 			valueColumnName="PK_VALUE",
 			allocationSize=100
 			
+			
 			)
 	
 	@GeneratedValue(strategy=GenerationType.TABLE,generator="ID_GENERATOR")
