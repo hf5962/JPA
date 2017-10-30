@@ -20,7 +20,7 @@ public class Main {
 		EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory(persistenceUnitName);
 		//EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory(persistenceUnitName, properties);
 		
-		//2. 创建EntityManager
+		//2. 创建EntityManager类似于hibernate的sessionFactory
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		//3. 开启事物
 		EntityTransaction transaction=entityManager.getTransaction();
