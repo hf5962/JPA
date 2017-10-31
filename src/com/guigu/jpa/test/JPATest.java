@@ -35,7 +35,9 @@ public class JPATest {
 		entityManagerFactory.close();
 	}
 	
-	
+	/**
+	 * 更新操作
+	 */
 	@Test
 	public void testManyToOneUpdate(){
 		Order order=entityManager.find(Order.class, 2);
