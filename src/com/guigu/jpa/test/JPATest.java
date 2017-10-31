@@ -33,6 +33,20 @@ public class JPATest {
 		entityManager.close();
 		entityManagerFactory.close();
 	}
+	//类似于hibernated的delete方法，把对象对应的记录从数据库中移除
+	//但注意：该方法只能移除持久化对象，而hibernate的delete方法实际上还可以移除游离对象
+	@Test
+	public void testRemove(){
+//		Customer customer =new Customer();
+//		customer.setId(2);
+		Customer customer=entityManager.find(Customer.class, 2);
+		entityManager.remove(customer);
+		
+		
+		
+		
+	}
+	
 	//类似于hibernate的save方法使对象由临时状态转变为持久化状态
 	//和hibernatede save方法不同之处：对象由id则不能执行insert操作，会抛出异常
 	@Test
