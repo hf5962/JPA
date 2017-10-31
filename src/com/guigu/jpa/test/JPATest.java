@@ -33,6 +33,94 @@ public class JPATest {
 		entityManager.close();
 		entityManagerFactory.close();
 	}
+	
+	/**
+	 * 若传入得是一个游离状态的对象，即传入的对象有OID
+	 * 1、若在EntityManager缓存中有该对象
+	 * 2、JPA会把游离状态的属性复制到EntityManager缓存中的对象中
+	 * 3、EntityManager缓存中的对象象执行update
+	 */
+	@Test
+	public void testMerge4(){
+		Customer customer=new Customer();
+		customer.setAge(16);
+		customer.setBirth(new Date());
+		customer.setCreatedTime(new Date());
+		customer.setEmail("dd@163.com");
+		customer.setLastName("DD");
+		customer.setId(4);
+	
+		Customer customer2=entityManager.find(Customer.class, 4);
+		
+		entityManager.merge(customer);
+		System.out.println(customer==customer2);//false
+		
+	}
+	
+	/**
+	 * 若传入得是一个游离状态的对象，即穿入的对象有OID
+	 * 1、若在EntityManager缓存中没有该对象
+	 * 2、若在数据库中有改记录
+	 * 3JPA会查询对应的记录，然后返回该记录对应的一个对象，再然后会把游离对象的属性复制到查询到的对象中
+	 * 4、对查询到的对象执行update操作
+	 */
+	@Test
+	public void testMerge3(){
+		Customer customer=new Customer();
+		customer.setAge(16);
+		customer.setBirth(new Date());
+		customer.setCreatedTime(new Date());
+		customer.setEmail("ee@163.com");
+		customer.setLastName("EE");
+		customer.setId(4);
+		Customer customer2=entityManager.merge(customer);
+		System.out.println(customer==customer2);//false
+		
+	}
+	
+	
+	/**
+	 * 若传入得是一个游离状态的对象，即穿入的对象有OID
+	 * 1、若在EntityManager缓存中没有该对象
+	 * 2、若在数据库中也没有改记录
+	 * 3JPA会创建一个新对象，然后把前游离对象的属性复制到新创建的对象中
+	 * 4、对新创建的对象执行insert操作
+	 */
+	@Test
+	public void testMerge2(){
+		Customer customer=new Customer();
+		customer.setAge(16);
+		customer.setBirth(new Date());
+		customer.setCreatedTime(new Date());
+		customer.setEmail("hello@163.com");
+		customer.setLastName("李四");
+		customer.setId(100);
+		Customer customer2=entityManager.merge(customer);
+		System.out.println("customer#id"+customer.getId());
+		System.out.println("customer2#id"+customer2.getId());
+		
+	}
+	
+	
+	/*
+	 * 总的来说：类似于hibernate session 的saveOrUpdate方法
+	 * 1.若传入得是一个临时对象则会创建一个新对象，把零时对象的属性复制到新对象中，然后对新对象执行持久化操作
+	 * 所以新的对象有id,但是以前的零时对象中没有id
+	 */
+	@Test
+	public void testMerge1(){
+		Customer customer=new Customer();
+		customer.setAge(16);
+		customer.setBirth(new Date());
+		customer.setCreatedTime(new Date());
+		customer.setEmail("hello@163.com");
+		customer.setLastName("李四");
+		
+		Customer customer2=entityManager.merge(customer);
+		System.out.println("customer#id"+customer.getId());
+		System.out.println("customer2#id"+customer2.getId());
+		
+	}
 	//类似于hibernated的delete方法，把对象对应的记录从数据库中移除
 	//但注意：该方法只能移除持久化对象，而hibernate的delete方法实际上还可以移除游离对象
 	@Test
