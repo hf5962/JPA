@@ -11,6 +11,7 @@
 	     <provider>org.hibernate.ejb.HibernatePersistence</provider>
 	     <!-- 添加持久化类 -->
 	     <class>com.guigu.jpa.helloword.Customer</class>
+	     <class>com.guigu.jpa.helloword.Order</class>
 		<properties>
 		    <!-- 连接数据库的基本信息 -->
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
