@@ -1,7 +1,5 @@
 package com.guigu.jpa.test;
 
-
-
 import java.util.Date;
 
 import javax.persistence.EntityManager;
@@ -35,23 +33,87 @@ public class JPATest {
 		entityManagerFactory.close();
 	}
 	
+	//修改
+	@Test
+	public void testUpdate(){
+		Customer customer=entityManager.find(Customer.class, 4);
+		customer.getOrders().iterator().next().setOrderName("O-XXX-10");
+		
+	}
+	
+     //删除
+	//默认情况下，若删除1的一端，则会先把关联的多的一段的外键置空,然后删除一的一端
+	////可以通过@OneToMany的cascade 属性来修改默认的删除策略
+	@Test
+	public void testOneToManyRemove(){
+		Customer customer=entityManager.find(Customer.class, 7);
+		entityManager.remove(customer);
+		
+	}
+	
+	//默认对关联多的一方使用懒加载的加载策略(延迟加载)
+	//可以使用@OneToMany的fetch 属性来修改默认的加载策略
+	//查询
+	@Test
+	public void testOneToManyFind(){
+		Customer customer=entityManager.find(Customer.class,6);
+		System.out.println(customer.getLastName());
+		
+		System.out.println(customer.getOrders().size());
+		
+	}
+	
+	//单向一对多保存时，一定会多出update语句
+	//因为多的一端在插入时不会同时插入外键列
+	//保存
+	@Test
+	public void testOneToManyPersist(){
+		Customer customer=new Customer();
+		customer.setAge(16);
+		customer.setBirth(new Date());
+		customer.setCreatedTime(new Date());
+		customer.setEmail("CC@163.com");
+		customer.setLastName("AA");
+		
+		Order order1=new Order();
+		order1.setOrderName("o-CC-1");
+		
+		Order order2=new Order();
+		order2.setOrderName("o-CC-2");
+		
+		//建立关联关系
+		customer.getOrders().add(order1);
+		customer.getOrders().add(order2);
+		//执行保存操作
+		entityManager.persist(customer);
+		entityManager.persist(order1);
+		entityManager.persist(order2);	
+		
+	}
+	
+	
+	
+	
+	
+	
 	/**
 	 * 更新操作
 	 */
-	@Test
+	
+	/*@Test
 	public void testManyToOneUpdate(){
 		Order order=entityManager.find(Order.class, 2);
 		order.getCustomer().setLastName("eeaa");
 	}
-	/**
+	*//**
 	 * 单向多对一删除
 	 * 注意不能直接删除一的一端因为有关系约束
-	 */
+	 *//*
 	@Test
 	public void testManyToOneRemove(){
 //		Order order=entityManager.find(Order.class, 1);
 //		entityManager.remove(order);//删除多的一端正常删除
-		Customer customer=entityManager.find(Customer.class, 5);
+		Customer customer=entityManager.find(Customer.class, 5);//删除失败
 		entityManager.remove(customer);
 		
 	}
@@ -68,9 +130,9 @@ public class JPATest {
 		System.out.println(order.getCustomer().getLastName());
 	
 	}
-	/**
+	*//**
 	 * 保存多对一，建议先保存1的一段，后保存n的一段，这样不会多出额外的UPDATE语句
-	 */
+	 *//*
 	//可以使用@ManyToOne的fetch属性来修改默认的关联属性的加载策略
 	@Test
 	public void testManyToOnePersist(){
@@ -96,7 +158,7 @@ public class JPATest {
 		entityManager.persist(order1);
 		entityManager.persist(order2);	
 	}
-	
+	*/
 	
 	
 	/**
