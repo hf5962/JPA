@@ -22,7 +22,7 @@ public class Order {
 	private Integer id;
 	private String orderName;
 	
-	private Customer customer;
+//	private Customer customer;
 	@GeneratedValue//使用默认的主键生成方式
     @Id
 	public Integer getId() {
@@ -44,19 +44,19 @@ public class Order {
 	//使用@ManyToOne 来映射多对一的关系
 	//使用@JoinColumn 来映射外键
 	//可以使用@ManyToOne的fetch属性来修改默认的关联属性的加载策略
-	@JoinColumn(name="CUSTOMER_ID")//外键列的列名
-	@ManyToOne(fetch=FetchType.LAZY)
-	public Customer getCustomer() {
-		return customer;
-	}
+//	@JoinColumn(name="CUSTOMER_ID")//外键列的列名
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	public Customer getCustomer() {
+//		return customer;
+//	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+//	public void setCustomer(Customer customer) {
+//		this.customer = customer;
+//	}
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", orderName=" + orderName + ", customer=" + customer + "]";
+		return "Order [id=" + id + ", orderName=" + orderName + ", customer="  + "]";
 	}
 	
 
