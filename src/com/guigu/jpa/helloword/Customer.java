@@ -112,8 +112,10 @@ public class Customer {
 	//可以使用@OneToMany的fetch 属性来修改默认的加载策略
 	//可以通过@OneToMany的cascade 属性来修改默认的删除策略
 	//cascade={CascadeType.REMOVE} 会把主表和从表的数据都删除
-	@JoinColumn(name="CUSTOMER_ID")
-	@OneToMany(fetch=FetchType.EAGER,cascade={CascadeType.REMOVE})
+	//mappedBy表明放弃关联关系维护并且不能在使用
+	//注意：若在一的一端@oneToMany 中使用mapperBy属性，则@oneToMany端就不能在使用@JoinColumn(name="CUSTOMER_ID")属性
+//	@JoinColumn(name="CUSTOMER_ID")
+	@OneToMany(fetch=FetchType.EAGER,cascade={CascadeType.REMOVE},mappedBy="customer")
    public Set<Order> getOrders() { 
 		return orders;
 	}
